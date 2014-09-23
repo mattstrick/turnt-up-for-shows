@@ -2,10 +2,21 @@
 <html>
   <head>
     <title>Turnt Up For Shows</title>
+    <!-- CSS Includes -->
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    Hello, World!
+    <h1>Hello, World!</h1> 
+    <div id="controls">
+      <button class="add-show">Add Show</button>
+    </div>
+    <div id="shows-list" class="row">
+      <p class="col-md-12" id="no-shows">No shows here <span class="glyphicon glyphicon-thumbs-down"></span></p>
+    </div>
+
+    <!-- JS Includes -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="./shows.js"></script>
   </body>
 </html>
