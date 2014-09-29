@@ -1,20 +1,133 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Turnt Up For Shows</title>
+    <meta charset="utf-8">
+    <meta name="description" content="An up to date listing of venues and shows around Chicago that have openings for independent improv teams." />
+    <title>Chicago Barprov Listings</title>
     <!-- CSS Includes -->
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
     <section class="container">
-      <h1>BarProv Listings</h1> 
+      <div class="page-header">
+        <h1>Chicago Barprov Listings</h1> 
+      </div><!-- /.page-header -->
+
+      <!--
       <div id="controls">
         <button class="add-show">Add Show</button>
       </div>
+      -->
       <div id="shows-list" class="row">
+        <!--
         <h3 class="col-md-12" id="no-shows">No shows here <span class="glyphicon glyphicon-thumbs-down"></span></h3>
-      </div>
-    </section>
+        -->
+        <!-- Show Listing -->
+        <section class='show panel panel-default'>
+          <div class="panel-heading">
+            <h3 class="panel-title">98.6 Presents Free Show</h3>
+          </div>
+          <div class="panel-body">
+            <div class='row'>
+              <div class='col-md-2'>
+                <img src="http://maps.googleapis.com/maps/api/staticmap?center=952+W+Newport+Ave,+Chicago,+IL+60657&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.9446323,-87.6539266" />
+              </div>
+              <div class='col-md-4'>
+                <h5>The Underground Lounge</h5>
+                952 W Newport Ave, Chicago IL<br />
+                Monday (8PM - 9:30PM and 10PM - 11:30PM)<br />
+                Tuesday (8PM - 9:30PM and 10PM - 11:30PM)
+              </div>
+              <div class='col-md-3'>
+                <ul class="list-group">
+                  <li class="list-group-item active">Booking</li>
+                  <li class="list-group-item">Improv - Solo</li>
+                  <li class="list-group-item">Improv - Group</li>
+                  <li class="list-group-item">Stand-up</li>
+                </ul>
+              </div>
+              <div class='col-md-3'>
+                <ul class="list-group">
+                  <li class="list-group-item active">Contact</li>
+                  <li class="list-group-item"><a href="mailto:98.6improv@gmail.com">Email</a></li>
+                  <li class="list-group-item"><a href="http://www.supersaas.com/schedule/98point6/shows">Show Sign-up</a></li>
+                  <li class="list-group-item"><a href="https://www.facebook.com/98point6">FB</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Show Listing -->
+        <section class='show panel panel-default'>
+          <div class="panel-heading">
+            <h3 class="panel-title">The Show Below</h3>
+          </div>
+          <div class="panel-body">
+            <div class='row'>
+              <div class='col-md-2'>
+                <img src="http://maps.googleapis.com/maps/api/staticmap?center=1540+N+Milwaukee+Ave,+Chicago,+IL+60622&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.909297,-87.676301" />
+              </div>
+              <div class='col-md-4'>
+                <h5>Crocodile</h5>
+                1540 N Milwaukee Ave, Chicago, IL<br />
+                Friday (9PM - 10PM)
+              </div>
+              <div class='col-md-3'>
+                <ul class="list-group">
+                  <li class="list-group-item active">Booking</li>
+                  <li class="list-group-item">Improv - Group</li>
+                </ul>
+              </div>
+              <div class='col-md-3'>
+                <ul class="list-group">
+                  <li class="list-group-item active">Contact</li>
+                  <li class="list-group-item"><a href="mailto:showbelowbooking@gmail.com">Email</a></li>
+                  <li class="list-group-item"><a href="https://www.facebook.com/TheShowBelow">FB</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Show Listing -->
+        <section class='show panel panel-default'>
+          <div class="panel-heading">
+            <h3 class="panel-title">The New New Show</h3>
+          </div>
+          <div class="panel-body">
+            <div class='row'>
+              <div class='col-md-2'>
+                <img src="http://maps.googleapis.com/maps/api/staticmap?center=3209+N+Halsted+St,+Chicago,+IL+60657r&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.940317,-87.649118" />
+              </div>
+              <div class='col-md-4'>
+                <h5>The Playground Theater</h5>
+                3209 N Halsted St, Chicago IL<br />
+                Wednesday (8PM - 9:30PM)
+              </div>
+              <div class='col-md-3'>
+                <ul class="list-group">
+                  <li class="list-group-item active">Booking</li>
+                  <li class="list-group-item">Improv - Group</li>
+                </ul>
+              </div>
+              <div class='col-md-3'>
+                <ul class="list-group">
+                  <li class="list-group-item active">Contact</li>
+                  <li class="list-group-item"><a href="mailto:newnewshow@gmail.com">Email</a></li>
+                  <li class="list-group-item"><a href="https://www.facebook.com/pages/The-New-New-Show/660778720628843">FB</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div><!-- /#shows-list -->
+
+      <div class="well" id="footer">
+        <a href="mailto:matt.strick@gmail.com">Contact Us</a> | &copy; 2014 Matt Strick
+      </div><!-- /#footer -->
+
+    </section><!-- /.container -->
 
     <!-- JS Includes -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
