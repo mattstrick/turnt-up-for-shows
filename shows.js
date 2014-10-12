@@ -1,5 +1,5 @@
 var shows = (function() {
-  var configs = {
+  var CONFIGS = {
     noShows : '#no-shows',
     addShow : '.add-show',
     showsContainer : '#shows-list',
@@ -59,93 +59,110 @@ var shows = (function() {
     ]
   };
 
+  // Function declarations
+  var newShow, generateShow, init, getHTMLFromHbsTemplate;
+
   //*********//
   // Initialization
   //*********//
-  var newShow, generateShow;
+  init = function() {
+    // Remove the "No Shows" notice the first time through
+    if ($(CONFIGS.noShows).length > 0) {
+      $(CONFIGS.noShows).remove();
+    }
 
-  // Handlebars Test - START
-  var source = "{{#each shows}}"+
-  "<!-- Show Listing -->"+
-  "<section class='show panel panel-default'>"+
-   "<div class='panel-heading'>"+
-     "<h3 class='panel-title'>{{title}}</h3>"+
-   "</div>"+
-   "<div class='panel-body'>"+
-     "<div class='row'>"+
-       "<div class='col-md-2'>"+
-         "<img src='{{{miniMap}}}' />"+
-       "</div>"+
-       "<div class='col-md-4'>"+
-         "<h5>{{venue}}</h5>"+
-          "{{address}}<br />"+
-          "{{#each times}}"+
-            "{{this}}"+
-          "{{/each}}"+
-       "</div>"+
-       "<div class='col-md-3'>"+
-         "<ul class='list-group'>"+
-           "<li class='list-group-item active'>Booking</li>"+
-           "{{#each bookingTypes}}"+
-            "<li class='list-group-item'>{{this}}</li>"+
-           "{{/each}}"+
-         "</ul>"+
-       "</div>"+
-       "<div class='col-md-3'>"+
-         "<ul class='list-group'>"+
-          "<li class='list-group-item active'>Contact</li>"+
-          "{{#each contactTypes}}"+
-            "<li class='list-group-item'>{{{this}}}</li>"+
-          "{{/each}}"+
-         "</ul>"+
-       "</div>"+
-     "</div>"+
-   "</div>"+
-   "</section>"+
-   "{{/each}}"
-
-  var template = Handlebars.compile(source);
-
-  var data = configs;
-
-  var result = template(data);
-
-  $(configs.showsContainer).append(result);
-
-  // Handlebars Test - END
+    $(CONFIGS.showsContainer).append(generateShow());
+  };
 
   // DEPRECATED - Still building out the funcionality. Not ready for 
   // people to add content yet.
   // attach new show event to button
-  $(configs.addShow).on('click', function() {
+  $(CONFIGS.addShow).on('click', function() {
     return newShow();
   });
 
   newShow = function() {
     // Remove the "No Shows" notice the first time through
-    if ($(configs.noShows).length > 0) {
-      $(configs.noShows).remove();
+    if ($(CONFIGS.noShows).length > 0) {
+      $(CONFIGS.noShows).remove();
     } 
     
-    $(configs.showsContainer).append(generateShow());
+    // @TODO: New show show pass Defaul/Empty show object to generateShow()
+    $(CONFIGS.showsContainer).append(generateShow());
   }
 
   // DEPRECATED: 
   // Generic show
   // @TODO: pass parameters to new show
-  generateShow = function() {
-    showHTML = "";
-    showHTML += "<section class='show col-md-12'>";
-      showHTML += "<h2>Show</h2>";
-      showHTML += "<div>Location Information</div>";
-      showHTML += "<div class='row'>";
-        showHTML += "<div class='col-md-4'>Google Map</div>";
-        showHTML += "<div class='col-md-8'>Show Information</div>";
-      showHTML += "</div>";
-    showHTML += "</section>";
+  generateShow = function(showConfigs) {
+    var data, showHTML;
+    
+    data = (!!showConfigs)? showConfigs : CONFIGS;
 
-    return showHTML;
+    console.log(showConfigs);
+
+    showHTML = "{{#each shows}}"+
+    "<!-- Show Listing -->"+
+    "<section class='show panel panel-default'>"+
+     "<div class='panel-heading'>"+
+       "<h3 class='panel-title'>{{title}}</h3>"+
+     "</div>"+
+     "<div class='panel-body'>"+
+       "<div class='row'>"+
+         "<div class='col-md-2'>"+
+           "<img src='{{{miniMap}}}' />"+
+         "</div>"+
+         "<div class='col-md-4'>"+
+           "<h5>{{venue}}</h5>"+
+            "{{address}}<br />"+
+            "{{#each times}}"+
+              "{{this}}"+
+            "{{/each}}"+
+         "</div>"+
+         "<div class='col-md-3'>"+
+           "<ul class='list-group'>"+
+             "<li class='list-group-item active'>Booking</li>"+
+             "{{#each bookingTypes}}"+
+              "<li class='list-group-item'>{{this}}</li>"+
+             "{{/each}}"+
+           "</ul>"+
+         "</div>"+
+         "<div class='col-md-3'>"+
+           "<ul class='list-group'>"+
+            "<li class='list-group-item active'>Contact</li>"+
+            "{{#each contactTypes}}"+
+              "<li class='list-group-item'>{{{this}}}</li>"+
+            "{{/each}}"+
+           "</ul>"+
+         "</div>"+
+       "</div>"+
+     "</div>"+
+     "</section>"+
+     "{{/each}}";
+
+    return getHTMLFromHbsTemplate(showHTML, data);
   }
+
+  getHTMLFromHbsTemplate = function(template, data) {
+    var templateCompiled, htmlResult;
+
+    if (!template){
+      console.log("No template!");
+      return false;
+    }
+
+    if (!data){
+      console.log("No data!");
+      return false;
+    }
+    
+    templateCompiled = Handlebars.compile(template);
+    htmlResult = templateCompiled(data);
+
+    return htmlResult;
+  }
+
+  init();
 
   return {
     newShow : newShow
