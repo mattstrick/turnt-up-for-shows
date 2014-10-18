@@ -5,55 +5,19 @@ var shows = (function() {
     showsContainer : '#shows-list',
     shows : [
       {
-        title:"The Show Below",
-        miniMap : "http://maps.googleapis.com/maps/api/staticmap?center=1540+N+Milwaukee+Ave,+Chicago,+IL+60622&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.909297,-87.676301",
-        venue: "Crocodile",
-        address: "1540 N Milwaukee Ave, Chicago, IL",
-        times: [
-          "Friday (9PM - 10PM)"
+        "title":"Test Show",
+        "miniMap" : "http://maps.googleapis.com/maps/api/staticmap?center=1540+N+Milwaukee+Ave,+Chicago,+IL+60622&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.909297,-87.676301",
+        "venue": "Fake Location",
+        "address" : "123 Anywhere Blvd, Chicago, IL",
+        "times": [
+          "Blowvember (9PM - 10PM)"
         ],
-        bookingTypes : [
+        "bookingTypes" : [
           "Improv - Group"
         ],
-        contactTypes : [
-          "<a href='mailto:showbelowbooking@gmail.com'>Email</a>",
-          "<a href='https://www.facebook.com/TheShowBelow'>FB</a>"
-        ]
-      },
-      {
-        title:"98.6 Presents Free Show", 
-        miniMap : "http://maps.googleapis.com/maps/api/staticmap?center=952+W+Newport+Ave,+Chicago,+IL+60657&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.9446323,-87.6539266",
-        venue: "The Underground Lounge",
-        address: "952 W Newport Ave, Chicago IL",
-        times: [
-          "Monday (8PM - 9:30PM and 10PM - 11:30PM)",
-          "Tuesday (8PM - 9:30PM and 10PM - 11:30PM)"
-        ],
-        bookingTypes : [
-          "Improv - Solo",
-          "Improv - Group",
-          "Stand-up"
-        ],
-        contactTypes : [
-          "<a href='mailto:98.6improv@gmail.com'>Email</a>",
-          "<a href='http://www.supersaas.com/schedule/98point6/shows'>Show Sign-up</a>",
-          "<a href='https://www.facebook.com/98point6'>FB</a>"
-        ]
-      },
-      {
-        title:"The New New Show",
-        miniMap : "http://maps.googleapis.com/maps/api/staticmap?center=3209+N+Halsted+St,+Chicago,+IL+60657r&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.940317,-87.649118",
-        venue: "The Playground Theater",
-        address: "3209 N Halsted St, Chicago IL",
-        times: [
-          "Wednesday (8PM - 9:30PM)"
-        ],
-        bookingTypes : [
-          "Improv - Group"
-        ],
-        contactTypes : [
-          "<a href='mailto:newnewshow@gmail.com'>Email</a>",
-          "<a href='https://www.facebook.com/pages/The-New-New-Show/660778720628843'>FB</a>"
+        "contactTypes" : [
+          "<a href='#'>Email</a>",
+          "<a href='#'>FB</a>"
         ]
       }
     ]
@@ -66,12 +30,23 @@ var shows = (function() {
   // Initialization
   //*********//
   init = function() {
-    // Remove the "No Shows" notice the first time through
-    if ($(CONFIGS.noShows).length > 0) {
-      $(CONFIGS.noShows).remove();
-    }
+    $.ajax({
+      url: (isLocalOrigin())? "./show_listings.json" : "/show_listings.json",
+      dataType: "json",
+      isLocal: "true"
+    }).success(function(data) {
+      // console.log("data" + data);
 
-    $(CONFIGS.showsContainer).append(generateShow());
+      // Remove the "No Shows" notice the first time through
+      if ($(CONFIGS.noShows).length > 0) {
+        $(CONFIGS.noShows).remove();
+      }
+
+      // Generate the shows!
+      $(CONFIGS.showsContainer).append(generateShow(data));
+    }).error(function() {
+      console.log("Shows Failed To Load");
+    });
   };
 
   // DEPRECATED - Still building out the funcionality. Not ready for 
@@ -97,9 +72,13 @@ var shows = (function() {
   generateShow = function(showConfigs) {
     var data, showHTML;
     
-    data = (!!showConfigs)? showConfigs : CONFIGS;
+    if (typeof showConfigs !== undefined) {
+      data = showConfigs;
+    } else {
+      data = CONFIGS;
+    }
 
-    console.log(showConfigs);
+    //console.log('configs' + showConfigs);
 
     showHTML = "{{#each shows}}"+
     "<!-- Show Listing -->"+
@@ -141,7 +120,13 @@ var shows = (function() {
      "{{/each}}";
 
     return getHTMLFromHbsTemplate(showHTML, data);
-  }
+  };
+
+  isLocalOrigin = function () {
+    if (window.location.origin === 'null') {
+      return true;
+    } else return false;
+  };
 
   getHTMLFromHbsTemplate = function(template, data) {
     var templateCompiled, htmlResult;
@@ -160,7 +145,7 @@ var shows = (function() {
     htmlResult = templateCompiled(data);
 
     return htmlResult;
-  }
+  };
 
   init();
 
