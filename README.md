@@ -1,3 +1,7 @@
 turnt-up-for-shows
 ==================
-Much to do here...
+
+10/19/2014
+Added Filtering by days!
+
+Users can now filter their results based on a particular day.
