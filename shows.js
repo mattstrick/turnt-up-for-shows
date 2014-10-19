@@ -32,8 +32,7 @@ var shows = (function() {
   init = function() {
     $.ajax({
       url: (isLocalOrigin())? "./show_listings.json" : "/show_listings.json",
-      dataType: "json",
-      isLocal: "true"
+      dataType: "json"
     }).success(function(data) {
       // console.log("data" + data);
 
@@ -82,7 +81,7 @@ var shows = (function() {
 
     showHTML = "{{#each shows}}"+
     "<!-- Show Listing -->"+
-    "<section class='show panel panel-default'>"+
+    "<section class='show panel panel-default {{#each times}}{{this.day}} {{/each}}'>"+
      "<div class='panel-heading'>"+
        "<h3 class='panel-title'>{{title}}</h3>"+
      "</div>"+
@@ -95,7 +94,7 @@ var shows = (function() {
            "<h5>{{venue}}</h5>"+
             "{{address}}<br />"+
             "{{#each times}}"+
-              "{{this}}"+
+              "{{this.day}} ({{this.time}}) <br/ >"+
             "{{/each}}"+
          "</div>"+
          "<div class='col-md-3'>"+
@@ -149,6 +148,7 @@ var shows = (function() {
 
   init();
 
+  // Return Public Functions
   return {
     newShow : newShow
   }
