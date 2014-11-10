@@ -10,7 +10,7 @@ var shows = (function() {
         "venue": "Fake Location",
         "address" : "123 Anywhere Blvd, Chicago, IL",
         "times": [
-          "Blowvember (9PM - 10PM)"
+          "Blowvember 9PM"
         ],
         "bookingTypes" : [
           "Improv - Group"
