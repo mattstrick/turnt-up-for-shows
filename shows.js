@@ -81,7 +81,7 @@ var shows = (function() {
 
     showHTML = "{{#each shows}}"+
     "<!-- Show Listing -->"+
-    "<section class='performance panel panel-default {{#each times}}{{this.day}} {{/each}}'>"+
+    "<section class='performance panel panel-default{{#each times}} {{this.day}}{{/each}}{{#each bookingTypes}} {{this}}{{/each}}'>"+
      "<div class='panel-heading'>"+
        "<h3 class='panel-title'>{{title}}</h3>"+
      "</div>"+
