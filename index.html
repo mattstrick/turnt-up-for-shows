@@ -20,8 +20,8 @@
 
       <div id="controls">
         <!-- <button class="add-show">Add Show</button>-->
-        <form id="day_controls">
-          <fieldset>
+        <form>
+          <fieldset name='day_controls'>
             <p>Filter by Days:</p>
             <input type="checkbox" name="day" value="Any" checked />Any
             <input type="checkbox" name="day" value="Monday" />M
@@ -31,8 +31,18 @@
             <input type="checkbox" name="day" value="Friday" />F
             <input type="checkbox" name="day" value="Saturday" />Sa
             <input type="checkbox" name="day" value="Sunday" />Su
-            <input type="submit" value="Update Days" />
           </fieldset>
+
+          <fieldset name="show_type_controls">
+            <p>Filter by Type:</p>
+            <input type="checkbox" name="type" value="Any" checked />Any
+            <input type="checkbox" name="type" value="solo" />Improv (Solo)
+            <input type="checkbox" name="type" value="group" />Improv (Group)
+            <input type="checkbox" name="type" value="standup" />Stand-up
+            <input type="checkbox" name="type" value="festival" />Festival
+          </fieldset>
+
+          <input type="submit" value="Update Types" />
         </form>
       </div><hr /><!-- /#controls -->
 
