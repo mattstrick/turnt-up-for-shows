@@ -20,7 +20,9 @@ var shows = (function() {
           "<a href='#'>FB</a>"
         ]
       }
-    ]
+    ],
+    infoPathLocal : "./",
+    infoPath : "/" 
   };
 
   // Function declarations
@@ -29,9 +31,18 @@ var shows = (function() {
   //*********//
   // Initialization
   //*********//
-  init = function() {
+  init = function(listingsJSON) {
+    // Determine where to pull listings from
+    if (typeof listingsJSON !== "undefined" && listingsJSON !== null) {
+      // We have a listing.
+    } else {
+      listingsJSON = "show_listings.json";
+    }
+    //console.log("Initializing wih file:" + listingsJSON);
+
+    // Get the listings
     $.ajax({
-      url: (isLocalOrigin())? "./show_listings.json" : "/show_listings.json",
+      url: (isLocalOrigin())? CONFIGS.infoPathLocal + listingsJSON.toString() : CONFIGS.infoPath + listingsJSON.toString(),
       dataType: "json"
     }).success(function(data) {
       // console.log("data" + data);
@@ -146,10 +157,10 @@ var shows = (function() {
     return htmlResult;
   };
 
-  init();
 
   // Return Public Functions
   return {
-    newShow : newShow
+    newShow : newShow,
+    init : init
   }
 })();
