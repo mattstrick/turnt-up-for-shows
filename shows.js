@@ -22,7 +22,8 @@ var shows = (function() {
       }
     ],
     infoPathLocal : "./",
-    infoPath : "/" 
+    infoPath : "/",
+    infoType : "json" 
   };
 
   // Function declarations
@@ -31,18 +32,25 @@ var shows = (function() {
   //*********//
   // Initialization
   //*********//
-  init = function(listingsJSON) {
+  init = function(listings) {
+    var path;
+
     // Determine where to pull listings from
-    if (typeof listingsJSON !== "undefined" && listingsJSON !== null) {
+    if (typeof listings !== "undefined" && listings !== null) {
       // We have a listing.
     } else {
-      listingsJSON = "show_listings.json";
+      listings = "show_listings";
     }
-    //console.log("Initializing wih file:" + listingsJSON);
+    //console.log("Initializing wih file:" + listings);
 
+    // Construct URL to listings
+    path = (isLocalOrigin())? CONFIGS.infoPathLocal : CONFIGS.infoPath;
+    path += listings.toString() + "." + CONFIGS.infoType;
+    console.log(path);
+    
     // Get the listings
     $.ajax({
-      url: (isLocalOrigin())? CONFIGS.infoPathLocal + listingsJSON.toString() : CONFIGS.infoPath + listingsJSON.toString(),
+      url: path,
       dataType: "json"
     }).success(function(data) {
       // console.log("data" + data);
