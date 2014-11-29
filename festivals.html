@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="An up to date listing of venues and shows around Chicago that have openings for independent improv teams." />
-    <title>Barprov Index - Chicago</title>
+    <meta name="description" content="An up to date listing of festivals that have open submissions for entry." />
+    <title>Barprov Index - Festivals</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <!-- CSS Includes -->
     <link href="/bootswatch/superhero/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +12,7 @@
   <body>
     <section class="container">
       <div class="page-header">
-        <h1>Barprov Listings - Chicago</h1> 
+        <h1>Barprov Listings - Festivals</h1> 
         <nav class="navbar navbar-default" role="navigation">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -29,42 +29,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
-                <li><a href="/festivals.html">Festivals</a></li>
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/festivals.html">Festivals <span class="sr-only">(current)</span></a></li>
                 <li><a href="/about.html">About</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
       </div><!-- /.page-header -->
-
-      <div id="controls">
-        <!-- <button class="add-show">Add Show</button>-->
-        <form>
-          <fieldset name='day_controls'>
-            <p>Filter by Days:</p>
-            <input type="checkbox" name="day" value="Any" checked />Any
-            <input type="checkbox" name="day" value="Monday" />M
-            <input type="checkbox" name="day" value="Tuesday" />T
-            <input type="checkbox" name="day" value="Wednesday" />W
-            <input type="checkbox" name="day" value="Thursday" />Th
-            <input type="checkbox" name="day" value="Friday" />F
-            <input type="checkbox" name="day" value="Saturday" />Sa
-            <input type="checkbox" name="day" value="Sunday" />Su
-          </fieldset>
-
-          <fieldset name="show_type_controls">
-            <p>Filter by Type:</p>
-            <input type="checkbox" name="type" value="Any" checked />Any
-            <input type="checkbox" name="type" value="solo" />Improv (Solo)
-            <input type="checkbox" name="type" value="group" />Improv (Group)
-            <input type="checkbox" name="type" value="standup" />Stand-up
-            <input type="checkbox" name="type" value="festival" />Festival
-          </fieldset>
-
-          <input type="submit" value="Update Types" />
-        </form>
-      </div><hr /><!-- /#controls -->
 
       <div id="shows-list" class="row">
         <h3 class="col-md-12" id="no-shows">No shows here <span class="glyphicon glyphicon-thumbs-down"></span></h3>
@@ -88,8 +60,9 @@
 
     <script>
       // Initialize show listings.
-      shows.init();
+      shows.init("festival_listings");
     </script>
+
     <!-- GA Snippet -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
