@@ -21,6 +21,14 @@ var shows = (function() {
         ]
       }
     ],
+    bookingTypes : {
+      "solo" : "Improv (Solo)",
+      "group" : "Improv (Group)",
+      "standup" : "Stand-up",
+      "festival" : "Festival",
+      "sketch_s" : "Sketch (Solo)",
+      "sketch_g" : "Sketch (Group)"
+    },
     infoPathLocal : "./",
     infoPath : "/",
     infoType : "json" 
@@ -59,6 +67,21 @@ var shows = (function() {
       if ($(CONFIGS.noShows).length > 0) {
         $(CONFIGS.noShows).remove();
       }
+
+      // Add prettyprint name for booking types
+      for (var i = data.shows.length - 1; i >= 0; i--) {
+        //console.log(data.shows[i]);
+        data.shows[i].prettyPrint = [];
+        for (var l = data.shows[i].bookingTypes.length - 1; l >= 0; l--) {
+          var _BT, _PrettyBT;
+          _BT = data.shows[i].bookingTypes[l];
+          _PrettyBT = CONFIGS.bookingTypes[_BT];
+          
+          //console.log((_PrettyBT === undefined? "OTHER" : _PrettyBT));
+          data.shows[i].prettyPrint.push(_PrettyBT);
+        };
+        //console.log(data.shows[i].prettyPrint);
+      };
 
       // Generate the shows!
       $(CONFIGS.showsContainer).append(generateShow(data));
@@ -119,7 +142,7 @@ var shows = (function() {
          "<div class='col-md-3'>"+
            "<ul class='list-group'>"+
              "<li class='list-group-item active'>Booking</li>"+
-             "{{#each bookingTypes}}"+
+             "{{#each prettyPrint}}"+
               "<li class='list-group-item'>{{this}}</li>"+
              "{{/each}}"+
            "</ul>"+
