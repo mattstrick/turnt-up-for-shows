@@ -1,5 +1,6 @@
 var controls = (function() {
   var CONFIGS = {
+    noShows : '#no-shows',
     form : "#controls form",
     days : [
       "Sunday",
@@ -15,6 +16,8 @@ var controls = (function() {
       "solo",
       "group",
       "standup",
+      "sketch_g",
+      "sketch_s",
       "festival"
     ],
     showTypes_fieldset : "[name=show_type_controls]"
@@ -72,13 +75,14 @@ var controls = (function() {
     $(CONFIGS.form).on('submit', function(e) {
       var updatedSelectors = [];
       e.preventDefault();
-      debugger;
+      /*
       // Submit handling of Days Form.
       updatedSelectors += changeShowDays($(this).find(CONFIGS.days_fieldset + ' input:checked'));
       // Submit handling of Types Form.
       updatedSelectors += changeShowTypes($(this).find(CONFIGS.showTypes_fieldset + ' input:checked'));
-
-      updateVisibleShows(updatedSelectors);
+      console.log("Showing classes with selectors: " + updatedSelectors);
+      */
+      updateVisibleShows(this);
     });
 
 
@@ -93,7 +97,7 @@ var controls = (function() {
       var day_arr = [];
       selected_days.each(function() {
         if ($(this).val() === 'Any') {
-          day_arr = [];
+          day_arr.push('*');
           return;
         } else {
           day_arr.push('.'+$(this).val());
@@ -115,7 +119,7 @@ var controls = (function() {
       var type_arr = [];
       selected_types.each(function() {
         if ($(this).val() === 'Any') {
-          type_arr = [];
+          type_arr.push('*');
           return;
         } else {
           type_arr.push('.'+$(this).val());
@@ -127,22 +131,33 @@ var controls = (function() {
     }
   };
 
+  /*
+    updateVisibleShows - handles updating the shows that are visible when new controls are submitted.
+    It starts with the full set of shows on the page. Then, parses a set of controls, to turn into DOM selectors.
+    From there, we can keep decrease the set of shows to show. Repeating for each set of controls.
+   */
+  updateVisibleShows = function(form) {
+    var performance_list = $('#shows-list .performance'), selectors;
 
-  updateVisibleShows = function(selectors) {
-    var performance_list = $('#shows-list');
+    // Hide everything
+    performance_list.hide();
+    console.log(performance_list);
 
-    if (typeof selectors === undefined) { // Nothing to filter by, show everything
-      console.log("updateVisibleShows#showAll");
-      performance_list.find('.performance').show();
-    } else if (selectors.length === 0) {  // Nothing to filter by, show everything
-      console.log("updateVisibleShows#showAll");
-      performance_list.find('.performance').show();
-    } else {  // Filter by selectors
-      console.log("updateVisibleShows#showDays "+selectors);
-      performance_list.find('.performance').hide();
-      performance_list.find(selectors.toString()).show();
+    // TODO: We can abstract this to take any number of control sets.
+    // Submit handling of Days Form.
+    selectors = changeShowDays($(form).find(CONFIGS.days_fieldset + ' input:checked'));
+    performance_list = performance_list.filter(selectors.toString());
+    
+    // Submit handling of Types Form.
+    selectors = changeShowTypes($(form).find(CONFIGS.showTypes_fieldset + ' input:checked'));
+    performance_list = performance_list.filter(selectors.toString());
+    console.log(performance_list);
+    
+    // Show what's left
+    performance_list.show();
 
-      // TODO: add a check. if no shows can be shown, then show messaging.
+    if (performance_list.size() === 0) {
+      $(CONFIGS.noShows).show();
     }
   };
 
