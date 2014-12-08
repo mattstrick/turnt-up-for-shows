@@ -63,10 +63,8 @@ var shows = (function() {
     }).success(function(data) {
       // console.log("data" + data);
 
-      // Remove the "No Shows" notice the first time through
-      if ($(CONFIGS.noShows).length > 0) {
-        $(CONFIGS.noShows).remove();
-      }
+      // If we got shows, hide the "No Shows" messaging
+      $(CONFIGS.noShows).hide();
 
       // Add prettyprint name for booking types
       for (var i = data.shows.length - 1; i >= 0; i--) {
@@ -98,10 +96,8 @@ var shows = (function() {
   });
 
   newShow = function() {
-    // Remove the "No Shows" notice the first time through
-    if ($(CONFIGS.noShows).length > 0) {
-      $(CONFIGS.noShows).remove();
-    } 
+    // Hide the "No Shows" notice the first time through
+    $(CONFIGS.noShows).hide(); 
     
     // @TODO: New show show pass Defaul/Empty show object to generateShow()
     $(CONFIGS.showsContainer).append(generateShow());
