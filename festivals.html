@@ -8,8 +8,23 @@
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <!-- CSS Includes -->
     <link href="/bootswatch/superhero/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .twitter-follow-button {
+        vertical-align: bottom;
+      }
+    </style>
   </head>
   <body>
+    <!-- FB Connect Snippet -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=353833414795899&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
     <section class="container">
       <div class="page-header">
         <h1>Barprov Listings - Festivals</h1> 
@@ -43,7 +58,7 @@
       </div><!-- /#shows-list -->
 
       <div class="well" id="footer">
-        <a href="mailto:matt@barprovindex.com">Contact Us</a> | <a href="https://twitter.com/barprovindex" class="twitter-follow-button" data-show-count="false" data-show-screen-name="true">Follow @barprovindex</a> | &copy; 2014 Matt Strick
+        <a href="mailto:matt@barprovindex.com">Contact Us</a> | <a href="https://twitter.com/barprovindex" class="twitter-follow-button" data-show-count="false" data-show-screen-name="true">Follow @barprovindex</a> | <div class="fb-like" data-href="https://www.facebook.com/barprovindex" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div> | &copy; 2014 Matt Strick
       </div><!-- /#footer -->
 
     </section><!-- /.container -->
