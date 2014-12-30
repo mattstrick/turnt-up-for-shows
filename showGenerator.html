@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An up to date listing of venues and shows around Chicago that have openings for independent improv teams." />
+    <title>Barprov Index - Chicago</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- CSS Includes -->
+    <link href="/bootswatch/superhero/bootstrap.min.css" rel="stylesheet">
+    <link href="/prismjs/prism.css" rel="stylesheet" />
+    <style>
+      .twitter-follow-button {
+        vertical-align: bottom;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- FB Connect Snippet -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=353833414795899&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <section class="container">
+      <div class="page-header">
+        <h1>Barprov Listings - Chicago</h1> 
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><img src="/img/bpi_brand.JPG" height="20" width="20" /></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/festivals.html">Festivals</a></li>
+                <li><a href="/about.html">About</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+      </div><!-- /.page-header -->
+
+      <form name="newShowDetails">
+        <label for="title">Title</label><input type="text" name="title" id="title" /><br />
+        <label for="venue">Venue</label><input type="text" name="venue" id="venue" /><br />
+        <label for="address">Address</label><input type="text" name="address" id="address" /><br />
+
+        <label for="city">City</label><input type="text" name="city" id="city" />
+        <label for="state">State</label><input type="text" name="state" id="state" /><br />
+        or<br />
+        <label for="zip">Zipcode</label><input type="text" name="zip" id="zip" /><br />
+
+        <!-- TODO -->
+        <label for="day">Day</label><input type="text" name="day" id="day" />
+        <label for="time">Time</label><input type="text" name="time" id="time" /><br />
+
+        <label for="bookings">Booking Types</label><input type="text" name="bookings" id="bookings" />
+
+        <label for="contact">Contacts</label><input type="text" name="contact" id="contact" />
+
+        <input type="submit" value="Generate Show" />
+      </form>
+      <section class="results">
+        <h1></h1>
+        <p></p>
+        <img src="" />
+
+        <pre><code class="language-js">
+          {
+            "title":"Spitballin' at Quencher's Saloon",
+            "miniMap" : "http://maps.googleapis.com/maps/api/staticmap?center=2401+N+Western+Ave,+Chicago,+IL+60622&zoom=15&size=150x150&maptype=roadmap&markers=color:red%7C41.925075,-87.687365",
+            "venue": "Quencher's Saloon",
+            "address" : "2401 N Western Ave, Chicago, IL",
+            "times": [
+              {
+                "day" : "Monday",
+                "time" : "8PM"
+              }
+            ],
+            "bookingTypes" : [
+              "group",
+              "solo"
+            ],
+            "contactTypes" : [
+              "<a href='https://www.facebook.com/pages/Spitballin/123798620992867'>FB</a>",
+              "<a href='mailto:quenchersimprov@gmail.com'>Email</a>"
+            ]
+          }
+        </code></pre>
+      </section>
+
+      <div class="well" id="footer">
+        <a href="mailto:matt@barprovindex.com">Contact Us</a> | <a href="https://twitter.com/barprovindex" class="twitter-follow-button" data-show-count="false" data-show-screen-name="true">Follow @barprovindex</a> | <div class="fb-like" data-href="https://www.facebook.com/barprovindex" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div> | &copy; 2014 Matt Strick
+      </div><!-- /#footer -->
+
+    </section><!-- /.container -->
+
+    <!-- JS Includes -->
+    <!-- Frameworks -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js" type="text/javascript"></script>
+
+    <!-- Scripts -->
+    <script src="/prismjs/prism.js"></script>
+    <script src="/showGenerator.js"></script>
+
+    <!-- GA Snippet -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55210696-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <!-- Twitter Button Snippet -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </body>
+</html>
