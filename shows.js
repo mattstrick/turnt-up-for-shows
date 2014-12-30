@@ -31,7 +31,7 @@ var shows = (function() {
     },
     infoPathLocal : "./",
     infoPath : "/",
-    infoType : "json" 
+    infoType : "json"
   };
 
   // Function declarations
@@ -126,7 +126,7 @@ var shows = (function() {
      "<div class='panel-body'>"+
        "<div class='row'>"+
          "<div class='col-md-2'>"+
-           "<img src='{{{miniMap}}}' />"+
+           "<img src='{{{miniMap}}}&api=AIzaSyApTvGE2HLUR3KOOYiPphzZUsmAaqcB0Nw' />"+
          "</div>"+
          "<div class='col-md-4'>"+
            "<h5>{{venue}}</h5>"+
