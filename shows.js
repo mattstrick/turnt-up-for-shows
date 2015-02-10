@@ -121,7 +121,11 @@ var shows = (function() {
     "<!-- Show Listing -->"+
     "<section class='performance panel panel-default{{#each times}} {{this.day}}{{/each}}{{#each bookingTypes}} {{this}}{{/each}}'>"+
      "<div class='panel-heading'>"+
-       "<h3 class='panel-title'>{{title}}</h3>"+
+       "<h3 class='panel-title'>"+
+       "{{#if id}}<a href='#/show/{{id}}/'>{{title}}</a>"+
+       "{{else}}{{title}}"+
+       "{{/if}}"+
+       "</h3>"+
      "</div>"+
      "<div class='panel-body'>"+
        "<div class='row'>"+
