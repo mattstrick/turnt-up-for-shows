@@ -10,6 +10,10 @@ crossroads.addRoute('/shows/',function(id) {
   shows.init();
 });
 /* TODO: Add festivals route */
+/* TODO: Add about route */
+/* TODO: Add edit page route */
+/* TODO: Need a good way to clear the contents when switching contexts. 
+I'm worried about memory leaks, slow page load times. */
 crossroads.routed.add(console.log, console); //log all routes
  
 //setup hasher
