@@ -1,7 +1,7 @@
 var show = (function() {
   var CONFIGS = {
     noShows : '#no-shows',
-    showContainer : '#shows-list',
+    showContainer : '#content',
     shows : [
       {
         "title":"Test Show",
