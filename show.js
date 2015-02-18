@@ -36,7 +36,7 @@ var show = (function() {
   var isInitialized = false;
 
   // Function declarations
-  var displayShow, generateShow, init, getHTMLFromHbsTemplate;
+  var displayShow, generateShow, init, getHTMLFromHbsTemplate, clean;
 
   //*********//
   // Initialization
@@ -44,12 +44,16 @@ var show = (function() {
   // Currently that means searching through a list of json files until the ID is found (not ideal)
   //*********//
   init = function() {
+    // Clean up from the previous page
+    clean();
+    
     if (isInitialized === false) {
       console.log("initialized!");
       isInitialized = true;
     } else {
       console.log("already initialized.");
     }
+
  /*
     var path;
 
@@ -103,6 +107,11 @@ var show = (function() {
   displayShow = function(id) {
     console.log("This is where we'll generate a show using id: " + id +"!");
     $(CONFIGS.showContainer).append(generateShow());
+  }
+
+  clean = function () {
+    console.log("Cleaning....");
+    $(CONFIGS.showContainer).empty();
   }
 
   // DEPRECATED: 
@@ -196,6 +205,7 @@ var show = (function() {
   // Return Public Functions
   return {
     displayShow : displayShow,
+    clean : clean,
     init : init
   }
 })();

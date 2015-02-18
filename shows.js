@@ -35,12 +35,15 @@ var shows = (function() {
   };
 
   // Function declarations
-  var newShow, generateShow, init, getHTMLFromHbsTemplate;
+  var newShow, generateShow, init, getHTMLFromHbsTemplate, clean;
 
   //*********//
   // Initialization
   //*********//
   init = function(listings) {
+    // Clean up from the previous page
+    clean();
+
     var path;
 
     // Determine where to pull listings from
@@ -101,6 +104,11 @@ var shows = (function() {
     
     // @TODO: New show show pass Defaul/Empty show object to generateShow()
     $(CONFIGS.showsContainer).append(generateShow());
+  }
+
+  clean = function () {
+    console.log("Cleaning....");
+    $(CONFIGS.showsContainer).empty();
   }
 
   // DEPRECATED: 
