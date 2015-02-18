@@ -1,5 +1,4 @@
 //setup crossroads
-crossroads.addRoute('foo');
 crossroads.addRoute('/show/{id}/',function(id) {
   console.log("Show ID: " + id);
   show.init();
@@ -10,6 +9,10 @@ crossroads.addRoute('/shows/',function(id) {
   shows.init();
 });
 /* TODO: Add festivals route */
+crossroads.addRoute('/festivals/',function(id) {
+  console.log("Generate Festivals List");
+  shows.init("festival_listings");
+});
 /* TODO: Add about route */
 /* TODO: Add edit page route */
 /* TODO: Need a good way to clear the contents when switching contexts. 
@@ -24,6 +27,3 @@ function parseHash(newHash, oldHash){
 hasher.initialized.add(parseHash); //parse initial hash
 hasher.changed.add(parseHash); //parse hash changes
 hasher.init(); //start listening for history change
- 
-//update URL fragment generating new history record
-hasher.setHash('shows/');
