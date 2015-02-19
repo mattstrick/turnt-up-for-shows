@@ -45,12 +45,15 @@ var shows = (function() {
     clean();
 
     var path;
+    var type;
 
     // Determine where to pull listings from
     if (typeof listings !== "undefined" && listings !== null) {
       // We have a listing.
+      type = "festival";
     } else {
       listings = "show_listings";
+      type = "show";
     }
     //console.log("Initializing wih file:" + listings);
 
@@ -64,7 +67,7 @@ var shows = (function() {
       url: path,
       dataType: "json"
     }).success(function(data) {
-      // console.log("data" + data);
+       console.log("data" + data.shows);
 
       // If we got shows, hide the "No Shows" messaging
       $(CONFIGS.noShows).hide();
@@ -72,6 +75,7 @@ var shows = (function() {
       // Add prettyprint name for booking types
       for (var i = data.shows.length - 1; i >= 0; i--) {
         //console.log(data.shows[i]);
+        data.shows[i].showType = type;
         data.shows[i].prettyPrint = [];
         for (var l = data.shows[i].bookingTypes.length - 1; l >= 0; l--) {
           var _BT, _PrettyBT;
@@ -82,6 +86,7 @@ var shows = (function() {
           data.shows[i].prettyPrint.push(_PrettyBT);
         };
         //console.log(data.shows[i].prettyPrint);
+        console.log(data.shows[i].showType);
       };
 
       // Generate the shows!
@@ -130,7 +135,7 @@ var shows = (function() {
     "<section class='performance panel panel-default{{#each times}} {{this.day}}{{/each}}{{#each bookingTypes}} {{this}}{{/each}}'>"+
      "<div class='panel-heading'>"+
        "<h3 class='panel-title'>"+
-       "{{#if id}}<a href='#/show/{{id}}/'>{{title}}</a>"+
+       "{{#if id}}<a href='#/{{showType}}/{{id}}/'>{{title}}</a>"+
        "{{else}}{{title}}"+
        "{{/if}}"+
        "</h3>"+
