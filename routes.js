@@ -4,23 +4,43 @@ crossroads.addRoute('/show/{id}/',function(id) {
   utils.clean();
   show.init();
   show.displayShow(id);
+
+  ga('send', 'pageview', {
+    'page': '/show/'+id,
+    'title': 'Show Page' + id 
+  });
 });
 crossroads.addRoute('/festival/{id}/',function(id) {
   console.log("Show ID: " + id);
   utils.clean();
   show.init();
   show.displayFestival(id);
+
+  ga('send', 'pageview', {
+    'page': '/festival/'+id,
+    'title': 'Festival Page' + id 
+  });
 });
 crossroads.addRoute('/shows/',function(id) {
   console.log("Generate Shows List");
   utils.clean();
   shows.init();
+
+  ga('send', 'pageview', {
+    'page': '/shows/',
+    'title': 'Shows Page'
+  });
 });
 /* TODO: Add festivals route */
 crossroads.addRoute('/festivals/',function(id) {
   console.log("Generate Festivals List");
   utils.clean();
   shows.init("festival_listings");
+
+  ga('send', 'pageview', {
+    'page': '/festivals/',
+    'title': 'Festivals Page'
+  });
 });
 /* TODO: Add about route */
 /* TODO: Add edit page route */
