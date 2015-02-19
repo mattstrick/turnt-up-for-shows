@@ -55,7 +55,7 @@ var utils = (function() {
     
     templateCompiled = Handlebars.compile(template);
     htmlResult = templateCompiled(data);
-    console.log("Returning HTML!" + htmlResult);
+    
     return htmlResult;
   };
 
