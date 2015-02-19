@@ -35,14 +35,12 @@ var shows = (function() {
   };
 
   // Function declarations
-  var newShow, generateShow, init, getHTMLFromHbsTemplate, clean;
+  var newShow, generateShow, init, shouldAddControls;
 
   //*********//
   // Initialization
   //*********//
   init = function(listings) {
-    // Clean up from the previous page
-    clean();
 
     var path;
     var type;
@@ -50,12 +48,22 @@ var shows = (function() {
     // Determine where to pull listings from
     if (typeof listings !== "undefined" && listings !== null) {
       // We have a listing.
-      type = "festival";
+      if (listings === "show_listings") {
+        type = "show";
+      } else {
+        type = "festival";
+      }
     } else {
       listings = "show_listings";
       type = "show";
     }
+
     //console.log("Initializing wih file:" + listings);
+    // If the type is show, add controls
+    if (shouldAddControls(type)) {
+      console.log("Add Controls!");
+      controls.init();
+    }
 
     // Construct URL to listings
     path = (isLocalOrigin())? CONFIGS.infoPathLocal : CONFIGS.infoPath;
@@ -67,7 +75,7 @@ var shows = (function() {
       url: path,
       dataType: "json"
     }).success(function(data) {
-       console.log("data" + data.shows);
+       //console.log("data" + data.shows);
 
       // If we got shows, hide the "No Shows" messaging
       $(CONFIGS.noShows).hide();
@@ -96,6 +104,7 @@ var shows = (function() {
     });
   };
 
+
   // DEPRECATED - Still building out the funcionality. Not ready for 
   // people to add content yet.
   // attach new show event to button
@@ -103,17 +112,22 @@ var shows = (function() {
     return newShow();
   });
 
+  shouldAddControls = function (type) {
+    if (type === "show") {
+      console.log("shouldAddControls: TRUE");
+      return true;
+    } else {
+      console.log("shouldAddControls: FALSE");
+      return false;
+    }
+  };
+
   newShow = function() {
     // Hide the "No Shows" notice the first time through
     $(CONFIGS.noShows).hide(); 
     
     // @TODO: New show show pass Defaul/Empty show object to generateShow()
     $(CONFIGS.showsContainer).append(generateShow());
-  }
-
-  clean = function () {
-    console.log("Cleaning....");
-    $(CONFIGS.showsContainer).empty();
   }
 
   // DEPRECATED: 
@@ -176,6 +190,10 @@ var shows = (function() {
     return utils.getHTMLFromHbsTemplate(showHTML, data);
   };
 
+  getShowsContainer = function () {
+    return CONFIGS.showsContainer;
+  }
+
   isLocalOrigin = function () {
     if (window.location.origin === 'null') {
       return true;
@@ -185,6 +203,7 @@ var shows = (function() {
   // Return Public Functions
   return {
     newShow : newShow,
+    getShowsContainer : getShowsContainer,
     init : init
   }
 })();
