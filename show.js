@@ -1,7 +1,7 @@
 var show = (function() {
   var CONFIGS = {
     noShows : '#no-shows',
-    showContainer : '#shows-list',
+    showContainer : '#content',
     shows : [
       {
         "title":"Test Show",
@@ -36,7 +36,7 @@ var show = (function() {
   var isInitialized = false;
 
   // Function declarations
-  var displayShow, generateShow, init, getHTMLFromHbsTemplate;
+  var displayShow, displayFestival, generateShow, init;
 
   //*********//
   // Initialization
@@ -50,8 +50,27 @@ var show = (function() {
     } else {
       console.log("already initialized.");
     }
- /*
-    var path;
+  };
+
+  // displayShow - Takes an id(int), finds the show details, and calls generateShow() on the data
+  displayShow = function(id) {
+    console.log("This is where we'll generate a show using id: " + id +"!");
+    getAndGenerateIdFromListing(id, "show_listings");
+  }
+
+  // displayFestival - Takes an id(int), finds the festival details, and calls generateShow() on the data
+  displayFestival = function(id) {
+    console.log("This is where we'll generate a show using id: " + id +"!");
+    getAndGenerateIdFromListing(id,"festival_listings");
+  }
+
+  getAndGenerateIdFromListing = function(id,listings) {
+    console.log("generating!" + id + listings);
+
+    if (typeof id === "undefined" || id === null) {
+      // No id, so return default show
+      return CONFIGS.shows;
+    }
 
     // Determine where to pull listings from
     if (typeof listings !== "undefined" && listings !== null) {
@@ -61,16 +80,22 @@ var show = (function() {
     }
     //console.log("Initializing wih file:" + listings);
 
+    var path, _showObj = {};
+
+    _showObj.shows = [];
+
     // Construct URL to listings
     path = (isLocalOrigin())? CONFIGS.infoPathLocal : CONFIGS.infoPath;
     path += listings.toString() + "." + CONFIGS.infoType;
     console.log(path);
+
     
     // Get the listings
     $.ajax({
       url: path,
       dataType: "json"
     }).success(function(data) {
+      console.log("success!");
       // console.log("data" + data);
 
       // If we got shows, hide the "No Shows" messaging
@@ -78,31 +103,30 @@ var show = (function() {
 
       // Add prettyprint name for booking types
       for (var i = data.shows.length - 1; i >= 0; i--) {
-        //console.log(data.shows[i]);
-        data.shows[i].prettyPrint = [];
-        for (var l = data.shows[i].bookingTypes.length - 1; l >= 0; l--) {
-          var _BT, _PrettyBT;
-          _BT = data.shows[i].bookingTypes[l];
-          _PrettyBT = CONFIGS.bookingTypes[_BT];
-          
-          //console.log((_PrettyBT === undefined? "OTHER" : _PrettyBT));
-          data.shows[i].prettyPrint.push(_PrettyBT);
-        };
-        //console.log(data.shows[i].prettyPrint);
-      };
+        if (data.shows[i].id === id) {
+          //console.log(data.shows[i]);
+          data.shows[i].prettyPrint = [];
+          for (var l = data.shows[i].bookingTypes.length - 1; l >= 0; l--) {
+            var _BT, _PrettyBT;
+            _BT = data.shows[i].bookingTypes[l];
+            _PrettyBT = CONFIGS.bookingTypes[_BT];
+            
+            //console.log((_PrettyBT === undefined? "OTHER" : _PrettyBT));
+            data.shows[i].prettyPrint.push(_PrettyBT);
+          };
 
+          // return this show
+          _showObj.shows.push(data.shows[i]);
+        }
+      };
+      var generatedShow = generateShow(_showObj);
+      //console.log(generatedShow);
       // Generate the shows!
-      $(CONFIGS.showContainer).append(generateShow(data));
+      $(CONFIGS.showContainer).append(generatedShow);
     }).error(function() {
       console.log("Shows Failed To Load");
     });
-/**/
-  };
 
-  // displayShow - Takes an id(int), finds the show details, and calls generateShow() on the data
-  displayShow = function(id) {
-    console.log("This is where we'll generate a show using id: " + id +"!");
-    $(CONFIGS.showContainer).append(generateShow());
   }
 
   // DEPRECATED: 
@@ -126,9 +150,7 @@ var show = (function() {
     "<section class='performance panel panel-default{{#each times}} {{this.day}}{{/each}}{{#each bookingTypes}} {{this}}{{/each}}'>"+
      "<div class='panel-heading'>"+
        "<h3 class='panel-title'>"+
-       "{{#if id}}<a href='#/show/{{id}}/'>{{title}}</a>"+
-       "{{else}}{{title}}"+
-       "{{/if}}"+
+       "{{title}}"+
        "</h3>"+
      "</div>"+
      "<div class='panel-body'>"+
@@ -164,7 +186,7 @@ var show = (function() {
      "</section>"+
      "{{/each}}";
 
-    return getHTMLFromHbsTemplate(showHTML, data);
+    return utils.getHTMLFromHbsTemplate(showHTML, data);
   };
 
   isLocalOrigin = function () {
@@ -173,29 +195,10 @@ var show = (function() {
     } else return false;
   };
 
-  getHTMLFromHbsTemplate = function(template, data) {
-    var templateCompiled, htmlResult;
-
-    if (!template){
-      console.log("No template!");
-      return false;
-    }
-
-    if (!data){
-      console.log("No data!");
-      return false;
-    }
-    
-    templateCompiled = Handlebars.compile(template);
-    htmlResult = templateCompiled(data);
-    console.log("Returning HTML!" + htmlResult);
-    return htmlResult;
-  };
-
-
   // Return Public Functions
   return {
     displayShow : displayShow,
+    displayFestival : displayFestival,
     init : init
   }
 })();

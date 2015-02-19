@@ -2,7 +2,7 @@ var shows = (function() {
   var CONFIGS = {
     noShows : '#no-shows',
     addShow : '.add-show',
-    showsContainer : '#shows-list',
+    showsContainer : '#content',
     shows : [
       {
         "title":"Test Show",
@@ -35,21 +35,35 @@ var shows = (function() {
   };
 
   // Function declarations
-  var newShow, generateShow, init, getHTMLFromHbsTemplate;
+  var newShow, generateShow, init, shouldAddControls;
 
   //*********//
   // Initialization
   //*********//
   init = function(listings) {
+
     var path;
+    var type;
 
     // Determine where to pull listings from
     if (typeof listings !== "undefined" && listings !== null) {
       // We have a listing.
+      if (listings === "show_listings") {
+        type = "show";
+      } else {
+        type = "festival";
+      }
     } else {
       listings = "show_listings";
+      type = "show";
     }
+
     //console.log("Initializing wih file:" + listings);
+    // If the type is show, add controls
+    if (shouldAddControls(type)) {
+      console.log("Add Controls!");
+      controls.init();
+    }
 
     // Construct URL to listings
     path = (isLocalOrigin())? CONFIGS.infoPathLocal : CONFIGS.infoPath;
@@ -61,7 +75,7 @@ var shows = (function() {
       url: path,
       dataType: "json"
     }).success(function(data) {
-      // console.log("data" + data);
+       //console.log("data" + data.shows);
 
       // If we got shows, hide the "No Shows" messaging
       $(CONFIGS.noShows).hide();
@@ -69,6 +83,7 @@ var shows = (function() {
       // Add prettyprint name for booking types
       for (var i = data.shows.length - 1; i >= 0; i--) {
         //console.log(data.shows[i]);
+        data.shows[i].showType = type;
         data.shows[i].prettyPrint = [];
         for (var l = data.shows[i].bookingTypes.length - 1; l >= 0; l--) {
           var _BT, _PrettyBT;
@@ -79,6 +94,7 @@ var shows = (function() {
           data.shows[i].prettyPrint.push(_PrettyBT);
         };
         //console.log(data.shows[i].prettyPrint);
+        console.log(data.shows[i].showType);
       };
 
       // Generate the shows!
@@ -88,12 +104,23 @@ var shows = (function() {
     });
   };
 
+
   // DEPRECATED - Still building out the funcionality. Not ready for 
   // people to add content yet.
   // attach new show event to button
   $(CONFIGS.addShow).on('click', function() {
     return newShow();
   });
+
+  shouldAddControls = function (type) {
+    if (type === "show") {
+      console.log("shouldAddControls: TRUE");
+      return true;
+    } else {
+      console.log("shouldAddControls: FALSE");
+      return false;
+    }
+  };
 
   newShow = function() {
     // Hide the "No Shows" notice the first time through
@@ -122,7 +149,7 @@ var shows = (function() {
     "<section class='performance panel panel-default{{#each times}} {{this.day}}{{/each}}{{#each bookingTypes}} {{this}}{{/each}}'>"+
      "<div class='panel-heading'>"+
        "<h3 class='panel-title'>"+
-       "{{#if id}}<a href='#/show/{{id}}/'>{{title}}</a>"+
+       "{{#if id}}<a href='#/{{showType}}/{{id}}/'>{{title}}</a>"+
        "{{else}}{{title}}"+
        "{{/if}}"+
        "</h3>"+
@@ -160,8 +187,12 @@ var shows = (function() {
      "</section>"+
      "{{/each}}";
 
-    return getHTMLFromHbsTemplate(showHTML, data);
+    return utils.getHTMLFromHbsTemplate(showHTML, data);
   };
+
+  getShowsContainer = function () {
+    return CONFIGS.showsContainer;
+  }
 
   isLocalOrigin = function () {
     if (window.location.origin === 'null') {
@@ -169,29 +200,10 @@ var shows = (function() {
     } else return false;
   };
 
-  getHTMLFromHbsTemplate = function(template, data) {
-    var templateCompiled, htmlResult;
-
-    if (!template){
-      console.log("No template!");
-      return false;
-    }
-
-    if (!data){
-      console.log("No data!");
-      return false;
-    }
-    
-    templateCompiled = Handlebars.compile(template);
-    htmlResult = templateCompiled(data);
-
-    return htmlResult;
-  };
-
-
   // Return Public Functions
   return {
     newShow : newShow,
+    getShowsContainer : getShowsContainer,
     init : init
   }
 })();

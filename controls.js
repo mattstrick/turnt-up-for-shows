@@ -1,6 +1,7 @@
 var controls = (function() {
   var CONFIGS = {
     noShows : '#no-shows',
+    container : '#controls',
     form : "#controls form",
     days : [
       "Sunday",
@@ -27,7 +28,10 @@ var controls = (function() {
   var init;
 
   init = function() {
+
     var days_checkbox, any_day_checkbox, ind_day_checkbox;
+
+    addControls();
 
     // Click handling of Days Form inputs.
     days_checkbox = $(CONFIGS.days_fieldset + " input:checkbox");
@@ -88,6 +92,12 @@ var controls = (function() {
 
   };
 
+  addControls = function() {
+    $(CONFIGS.container).append(
+      '<!-- <button class="add-show">Add Show</button>--><form><fieldset name="day_controls"><p>Filter by Days:</p><input type="checkbox" name="day" value="Any" checked />Any<input type="checkbox" name="day" value="Monday" />M<input type="checkbox" name="day" value="Tuesday" />T<input type="checkbox" name="day" value="Wednesday" />W<input type="checkbox" name="day" value="Thursday" />Th<input type="checkbox" name="day" value="Friday" />F<input type="checkbox" name="day" value="Saturday" />Sa<input type="checkbox" name="day" value="Sunday" />Su</fieldset><fieldset name="show_type_controls"><p>Filter by Type:</p><input type="checkbox" name="type" value="Any" checked />Any<input type="checkbox" name="type" value="solo" />Improv (Solo)<input type="checkbox" name="type" value="group" />Improv (Group)<input type="checkbox" name="type" value="standup" />Stand-up<input type="checkbox" name="type" value="sketch_s" />Sketch (Solo)<input type="checkbox" name="type" value="sketch_g" />Sketch (Group)<!--<input type="checkbox" name="type" value="festival" />Festival--></fieldset><input type="submit" value="Update Types" /></form>'
+    );
+  };
+
   // changeShowDays - converts a selection of DOM elements to an array of days that 
   // updateVisibleShows can parse.
   changeShowDays = function(selected_days) {
@@ -137,7 +147,7 @@ var controls = (function() {
     From there, we can keep decrease the set of shows to show. Repeating for each set of controls.
    */
   updateVisibleShows = function(form) {
-    var performance_list = $('#shows-list .performance'), selectors;
+    var performance_list = $(shows.getShowsContainer()).find('.performance'), selectors;
 
     // Hide everything
     performance_list.hide();
@@ -161,10 +171,9 @@ var controls = (function() {
     }
   };
 
-  init();
-
   // Return Public Functions
   return {
-    
+    addControls : addControls,
+    init : init
   }
 })();

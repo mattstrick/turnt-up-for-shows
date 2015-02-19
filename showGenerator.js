@@ -26,9 +26,12 @@ var showGenerator = (function() {
     if (data.status != "ZERO_RESULTS") {
       var form = $(CONFIGS.show_details_form);
       var results = $('.results');
+      var date = new Date();
 
-      new_show.miniMap = generateStaticMapURL(data.results.pop());
+      // Get a unique time, and convert from base 10 to base 32 to save some space
+      new_show.id = date.getTime().toString(32);
       new_show.title = form.find('[name=title]').val();
+      new_show.miniMap = generateStaticMapURL(data.results.pop());
       new_show.venue = form.find('[name=venue]').val();
 
       results.find('h1').html(new_show.address);
