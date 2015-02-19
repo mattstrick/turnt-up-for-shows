@@ -4,6 +4,11 @@ crossroads.addRoute('/show/{id}/',function(id) {
   show.init();
   show.displayShow(id);
 });
+crossroads.addRoute('/festival/{id}/',function(id) {
+  console.log("Show ID: " + id);
+  show.init();
+  show.displayFestival(id);
+});
 crossroads.addRoute('/shows/',function(id) {
   console.log("Generate Shows List");
   shows.init();
