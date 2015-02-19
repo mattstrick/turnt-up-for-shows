@@ -173,7 +173,7 @@ var shows = (function() {
      "</section>"+
      "{{/each}}";
 
-    return getHTMLFromHbsTemplate(showHTML, data);
+    return utils.getHTMLFromHbsTemplate(showHTML, data);
   };
 
   isLocalOrigin = function () {
@@ -181,26 +181,6 @@ var shows = (function() {
       return true;
     } else return false;
   };
-
-  getHTMLFromHbsTemplate = function(template, data) {
-    var templateCompiled, htmlResult;
-
-    if (!template){
-      console.log("No template!");
-      return false;
-    }
-
-    if (!data){
-      console.log("No data!");
-      return false;
-    }
-    
-    templateCompiled = Handlebars.compile(template);
-    htmlResult = templateCompiled(data);
-
-    return htmlResult;
-  };
-
 
   // Return Public Functions
   return {
