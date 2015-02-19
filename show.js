@@ -36,7 +36,7 @@ var show = (function() {
   var isInitialized = false;
 
   // Function declarations
-  var displayShow, displayFestival, generateShow, init, clean;
+  var displayShow, displayFestival, generateShow, init;
 
   //*********//
   // Initialization
@@ -44,9 +44,6 @@ var show = (function() {
   // Currently that means searching through a list of json files until the ID is found (not ideal)
   //*********//
   init = function() {
-    // Clean up from the previous page
-    clean();
-
     if (isInitialized === false) {
       console.log("initialized!");
       isInitialized = true;
@@ -65,11 +62,6 @@ var show = (function() {
   displayFestival = function(id) {
     console.log("This is where we'll generate a show using id: " + id +"!");
     getAndGenerateIdFromListing(id,"festival_listings");
-  }
-
-  clean = function () {
-    console.log("Cleaning....");
-    $(CONFIGS.showContainer).empty();
   }
 
   getAndGenerateIdFromListing = function(id,listings) {
@@ -128,7 +120,7 @@ var show = (function() {
         }
       };
       var generatedShow = generateShow(_showObj);
-      console.log(generatedShow);
+      //console.log(generatedShow);
       // Generate the shows!
       $(CONFIGS.showContainer).append(generatedShow);
     }).error(function() {
@@ -207,7 +199,6 @@ var show = (function() {
   return {
     displayShow : displayShow,
     displayFestival : displayFestival,
-    clean : clean,
     init : init
   }
 })();
