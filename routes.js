@@ -1,5 +1,5 @@
 //setup crossroads
-crossroads.addRoute('/show/{id}/',function(id) {
+crossroads.addRoute('!/show/{id}/',function(id) {
   console.log("Show ID: " + id);
   utils.clean();
   show.init();
@@ -10,7 +10,11 @@ crossroads.addRoute('/show/{id}/',function(id) {
     'title': 'Show Page' + id 
   });
 });
-crossroads.addRoute('/festival/{id}/',function(id) {
+crossroads.addRoute('show/{id}/',function(id) {
+  hasher.setHash('!/show/'+id+'/');
+});
+
+crossroads.addRoute('!/festival/{id}/',function(id) {
   console.log("Show ID: " + id);
   utils.clean();
   show.init();
@@ -21,7 +25,11 @@ crossroads.addRoute('/festival/{id}/',function(id) {
     'title': 'Festival Page' + id 
   });
 });
-crossroads.addRoute('/shows/',function() {
+crossroads.addRoute('festival/{id}/',function(id) {
+  hasher.setHash('!/festival/'+id+'/');
+});
+
+crossroads.addRoute('!/shows/',function() {
   console.log("Generate Shows List");
   utils.clean();
   shows.init();
@@ -31,8 +39,11 @@ crossroads.addRoute('/shows/',function() {
     'title': 'Shows Page'
   });
 });
-/* TODO: Add festivals route */
-crossroads.addRoute('/festivals/',function() {
+crossroads.addRoute('shows/',function(id) {
+  hasher.setHash('!/shows/');
+});
+
+crossroads.addRoute('!/festivals/',function() {
   console.log("Generate Festivals List");
   utils.clean();
   shows.init("festival_listings");
@@ -41,6 +52,9 @@ crossroads.addRoute('/festivals/',function() {
     'page': '/festivals/',
     'title': 'Festivals Page'
   });
+});
+crossroads.addRoute('festivals/',function(id) {
+  hasher.setHash('!/festivals/');
 });
 /* TODO: Add about route */
 /* TODO: Add edit page route */
