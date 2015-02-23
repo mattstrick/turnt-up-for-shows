@@ -21,7 +21,7 @@ crossroads.addRoute('/festival/{id}/',function(id) {
     'title': 'Festival Page' + id 
   });
 });
-crossroads.addRoute('/shows/',function(id) {
+crossroads.addRoute('/shows/',function() {
   console.log("Generate Shows List");
   utils.clean();
   shows.init();
@@ -32,7 +32,7 @@ crossroads.addRoute('/shows/',function(id) {
   });
 });
 /* TODO: Add festivals route */
-crossroads.addRoute('/festivals/',function(id) {
+crossroads.addRoute('/festivals/',function() {
   console.log("Generate Festivals List");
   utils.clean();
   shows.init("festival_listings");
