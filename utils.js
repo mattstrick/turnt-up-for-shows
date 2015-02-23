@@ -64,7 +64,11 @@ var utils = (function() {
   }
 
   getEscapedFragment = function () {
-    var _searchVars = location.search.split('&');
+    var _searchString, _searchVars;
+    // Remove the '?' from beginning of string
+    _searchString = location.search.substr(1);
+    _searchVars = _searchString.split('&');
+    
     for (var i = 0; i < _searchVars.length; i++) {
       if (/_escaped_fragment_/.test(_searchVars[i])) {
           return (_searchVars[i].replace('_escaped_fragment_=',''));
