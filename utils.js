@@ -59,10 +59,26 @@ var utils = (function() {
     return htmlResult;
   };
 
+  isEscapedFragmentInUrl = function () {
+    return (/_escaped_fragment_/.test(location.search)) ? true : false;
+  }
+
+  getEscapedFragment = function () {
+    var _searchVars = location.search.split('&');
+    for (var i = 0; i < _searchVars.length; i++) {
+      if (/_escaped_fragment_/.test(_searchVars[i])) {
+          return (_searchVars[i].replace('_escaped_fragment_=',''));
+      }
+    }
+    return "";
+  }
+
 
   // Return Public Functions
   return {
     clean:clean,
+    isEscapedFragmentInUrl : isEscapedFragmentInUrl,
+    getEscapedFragment : getEscapedFragment,
     getHTMLFromHbsTemplate:getHTMLFromHbsTemplate
   }
 })();
