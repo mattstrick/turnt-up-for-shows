@@ -208,6 +208,9 @@ var controls = (function() {
     From there, we can keep decrease the set of shows to show. Repeating for each set of controls.
    */
   updateVisibleShows = function(form) {
+    // Remove No Shows Messaging
+    $(CONFIGS.noShows).remove();
+    
     var performance_list = $(shows.getShowsContainer()).find('.performance'), selectors;
 
     // Hide everything
@@ -228,7 +231,7 @@ var controls = (function() {
     performance_list.show();
 
     if (performance_list.size() === 0) {
-      $(CONFIGS.noShows).show();
+      utils.noShowsFound();
     }
   };
 

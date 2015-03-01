@@ -61,11 +61,11 @@ var utils = (function() {
 
   getBookingTypes = function () {
     return CONFIGS.bookingTypes;
-  }
+  };
 
   isEscapedFragmentInUrl = function () {
     return (/_escaped_fragment_/.test(location.search)) ? true : false;
-  }
+  };
 
   getEscapedFragment = function () {
     var _searchString, _searchVars;
@@ -79,7 +79,11 @@ var utils = (function() {
       }
     }
     return "";
-  }
+  };
+
+  noShowsFound = function () {
+    $(CONFIGS.container).append('<h3 class="col-md-12 performance" id="no-shows">No shows here <span class="glyphicon glyphicon-thumbs-down"></span></h3>');
+  };
 
 
   // Return Public Functions
@@ -88,6 +92,7 @@ var utils = (function() {
     isEscapedFragmentInUrl : isEscapedFragmentInUrl,
     getEscapedFragment : getEscapedFragment,
     getHTMLFromHbsTemplate:getHTMLFromHbsTemplate,
-    getBookingTypes : getBookingTypes
+    getBookingTypes : getBookingTypes,
+    noShowsFound : noShowsFound
   }
 })();
