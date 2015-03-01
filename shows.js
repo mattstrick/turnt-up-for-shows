@@ -21,14 +21,6 @@ var shows = (function() {
         ]
       }
     ],
-    bookingTypes : {
-      "solo" : "Improv (Solo)",
-      "group" : "Improv (Group)",
-      "standup" : "Stand-up",
-      "festival" : "Festival",
-      "sketch_s" : "Sketch (Solo)",
-      "sketch_g" : "Sketch (Group)"
-    },
     infoPathLocal : "./",
     infoPath : "/",
     infoType : "json"
@@ -81,6 +73,8 @@ var shows = (function() {
       $(CONFIGS.noShows).hide();
 
       // Add prettyprint name for booking types
+      // Get name/value pairs of available booking types/pretty names
+      _BTarr = utils.getBookingTypes();
       for (var i = data.shows.length - 1; i >= 0; i--) {
         //console.log(data.shows[i]);
         data.shows[i].showType = type;
@@ -88,7 +82,7 @@ var shows = (function() {
         for (var l = data.shows[i].bookingTypes.length - 1; l >= 0; l--) {
           var _BT, _PrettyBT;
           _BT = data.shows[i].bookingTypes[l];
-          _PrettyBT = CONFIGS.bookingTypes[_BT];
+          _PrettyBT = _BTarr[_BT];
           
           //console.log((_PrettyBT === undefined? "OTHER" : _PrettyBT));
           data.shows[i].prettyPrint.push(_PrettyBT);

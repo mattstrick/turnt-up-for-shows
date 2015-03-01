@@ -59,6 +59,10 @@ var utils = (function() {
     return htmlResult;
   };
 
+  getBookingTypes = function () {
+    return CONFIGS.bookingTypes;
+  }
+
   isEscapedFragmentInUrl = function () {
     return (/_escaped_fragment_/.test(location.search)) ? true : false;
   }
@@ -83,6 +87,7 @@ var utils = (function() {
     clean:clean,
     isEscapedFragmentInUrl : isEscapedFragmentInUrl,
     getEscapedFragment : getEscapedFragment,
-    getHTMLFromHbsTemplate:getHTMLFromHbsTemplate
+    getHTMLFromHbsTemplate:getHTMLFromHbsTemplate,
+    getBookingTypes : getBookingTypes
   }
 })();
