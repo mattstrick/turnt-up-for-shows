@@ -142,6 +142,7 @@ var controls = (function() {
   buildTitle = function (value, type) {
     var returnVal = "";
 
+    // Return 'Any' values
     if (value.substr(-3) === "Any") {
       returnVal = value.substr(-3);
       return returnVal;
