@@ -12,6 +12,8 @@ var showGenerator = (function() {
   var new_show = {};
 
   init = function() {
+    buildBookingTypes();
+
     $(CONFIGS.show_details_form).on('submit', function (e) {
       e.preventDefault();
       newShow(this);
@@ -24,23 +26,49 @@ var showGenerator = (function() {
     console.log(data);
     
     if (data.status != "ZERO_RESULTS") {
-      var form = $(CONFIGS.show_details_form);
-      var results = $('.results');
+      var $form = $(CONFIGS.show_details_form);
+      var $results = $('.results');
       var date = new Date();
 
       // Get a unique time, and convert from base 10 to base 32 to save some space
       new_show.id = date.getTime().toString(32);
-      new_show.title = form.find('[name=title]').val();
+      new_show.title = $form.find('[name=title]').val();
       new_show.miniMap = generateStaticMapURL(data.results.pop());
-      new_show.venue = form.find('[name=venue]').val();
+      new_show.venue = $form.find('[name=venue]').val();
 
-      results.find('h1').html(new_show.address);
-      results.find('p').html(new_show.miniMap);
-      results.find('img').attr('src',new_show.miniMap);
+      new_show.bookingTypes = [];
+      _inputsBT = $form.find('[name=bookingTypes] input');
+      for (input in _inputsBT) {
+        if (_inputsBT[input].checked) {
+          new_show.bookingTypes.push(_inputsBT[input].value);
+        }
+      }
+
+      console.log(new_show.bookingTypes);
+
+      $results.find('h1').html(new_show.address);
+      $results.find('p').html(new_show.miniMap);
+      $results.find('img').attr('src',new_show.miniMap);
       $('code').html(JSON.stringify(new_show));
     } else {
       console.log("No Results");
     }
+  };
+
+  buildBookingTypes = function () {
+    var _BT, _inputList;
+    
+    _BT = utils.getBookingTypes();
+    console.log(_BT);
+
+    _inputList = "";
+    for (option in _BT) {
+      _inputList += '<label for="'+option+'">'+_BT[option]+'</label><input type="checkbox" name="'+option+'" id="'+option+'" value="'+option+'"/>'
+    }
+
+    console.log(_inputList);
+    $("#noBookingTypes").replaceWith(_inputList);
+
   };
 
   generateStaticMapURL = function (data) {
