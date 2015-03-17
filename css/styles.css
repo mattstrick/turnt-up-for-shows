@@ -1,3 +1,15 @@
+/* Styles */
+#controls input[type=checkbox] {
+  margin-left: 5px;
+}
+
+#controls input[type=submit] {
+  margin: 10px 0;
+}
+
+/****************
+  Updated look for controls
+****************/
 /* .squaredOne */
 /* ORIGINAL - http://codepen.io/bbodine1/pen/novBm
 .squaredOne {

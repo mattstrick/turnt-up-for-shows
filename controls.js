@@ -98,24 +98,22 @@ var controls = (function() {
       '</form><hr>'
     );
 
-    // Day inputs
-    // Build the inputs
+    // Build Day inputs
     _days = "";
-    _days += buildInput(CONFIGS.days_all,'day', true);
+    _days += "<section>" + buildInput(CONFIGS.days_all,'day', true) + buildTitle(CONFIGS.days_all,'day') + "</section>";
     for (option in CONFIGS.days) {
-      _days += buildInput(CONFIGS.days[option],'day', false);
+      _days += "<section>" +  buildInput(CONFIGS.days[option],'day', false) + buildTitle(CONFIGS.days[option],'day') + "</section>";
     }
 
     $(CONFIGS.days_fieldset).append(_days);
     //Hardcoded Values
     // '<input type="checkbox" name="day" value="Any" checked />Any<input type="checkbox" name="day" value="Monday" />M<input type="checkbox" name="day" value="Tuesday" />T<input type="checkbox" name="day" value="Wednesday" />W<input type="checkbox" name="day" value="Thursday" />Th<input type="checkbox" name="day" value="Friday" />F<input type="checkbox" name="day" value="Saturday" />Sa<input type="checkbox" name="day" value="Sunday" />Su'
 
-    //Type inputs
-    // Build the inputs
+    // Build Type inputs
     _types = "";
-    _types += buildInput(CONFIGS.showTypes_all,'type', true);
+    _types += "<section>" +  buildInput(CONFIGS.showTypes_all,'type', true) + buildTitle(CONFIGS.showTypes_all,'type') + "</section>";
     for (option in CONFIGS.showTypes) {
-      _types += buildInput(CONFIGS.showTypes[option],'type', false);
+      _types += "<section>" +  buildInput(CONFIGS.showTypes[option],'type', false) + buildTitle(CONFIGS.showTypes[option],'type') + "</section>";
     }
 
     $(CONFIGS.showTypes_fieldset).append(_types);
@@ -134,7 +132,7 @@ var controls = (function() {
     input += '</section>';
     /**/
     /* Normal Checkboxes */
-    input += '<input type="checkbox" name="'+ type +'" value="'+ value +'" '+ ((isChecked)? "checked" : "") +' />' + buildTitle(value,type);
+    input += '<input type="checkbox" id="' + type + "_" + value + '" name="'+ type +'" value="'+ value +'" '+ ((isChecked)? "checked" : "") +' />';
     /**/
     return input;
   };
@@ -145,17 +143,14 @@ var controls = (function() {
     // Return 'Any' values
     if (value.substr(-3) === "Any") {
       returnVal = value.substr(-3);
-      return returnVal;
-    }
-
-    if (type === 'day') {
+    } else if (type === 'day') {
       returnVal = value.substr(0,2);
     } else {
       _BTarr = utils.getBookingTypes();
       returnVal = _BTarr[value];
     }
 
-    return returnVal;
+    return "<label for='" + type + "_" + value + "'>" + returnVal + "</label>";
   };
 
   // changeShowDays - converts a selection of DOM elements to an array of days that 
